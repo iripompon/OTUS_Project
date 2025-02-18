@@ -1,8 +1,8 @@
 package main
 
 import (
+	//"ff/internal/model/person"
 	"fmt"
-	"person"
 )
 
 func main() {
