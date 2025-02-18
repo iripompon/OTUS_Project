@@ -160,15 +160,15 @@ type MethodReceivePayment struct {
 type InsuredPerson struct {
 	XMLName xml.Name `xml:"urn:ru:fss:integration:types:rpu:InsuredPerson:v01 insuredPerson"`
 
-	FullName `xml:"fullName,omitempty"`
+	FullName `xml:"fullName"`
 
-	BirthDate string `xml:"birthDate,omitempty"`
+	BirthDate string `xml:"birthDate"`
 
-	Gender GenderType `xml:"gender,omitempty"`
+	Gender GenderType `xml:"gender"`
 
-	snils string `xml:"snils,omitempty"`
+	Snils string `xml:"snils"`
 
-	inn string `xml:"inn,omitempty"`
+	Inn string `xml:"inn"`
 
 	IdentityDocument `xml:"identityDocument,omitempty"`
 
@@ -179,7 +179,7 @@ type InsuredPerson struct {
 
 func NewInsuredPerson(snils string, inn string) *InsuredPerson {
 	return &InsuredPerson{
-		snils: snils,
-		inn:   inn,
+		Snils: snils,
+		Inn:   inn,
 	}
 }
