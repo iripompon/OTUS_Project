@@ -166,13 +166,20 @@ type InsuredPerson struct {
 
 	Gender GenderType `xml:"gender,omitempty"`
 
-	Snils string `xml:"snils,omitempty"`
+	snils string `xml:"snils,omitempty"`
 
-	Inn string `xml:"inn,omitempty"`
+	inn string `xml:"inn,omitempty"`
 
 	IdentityDocument `xml:"identityDocument,omitempty"`
 
 	RegAddress `xml:"regAddress,omitempty"`
 
 	MethodReceivePayment `xml:"methodReceivePayment,omitempty"`
+}
+
+func NewInsuredPerson(snils string, inn string) *InsuredPerson {
+	return &InsuredPerson{
+		snils: snils,
+		inn: inn
+	}
 }
