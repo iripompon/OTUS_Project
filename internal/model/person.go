@@ -1,4 +1,4 @@
-package person
+package model
 
 import (
 	"encoding/xml"
@@ -180,6 +180,6 @@ type InsuredPerson struct {
 func NewInsuredPerson(snils string, inn string) *InsuredPerson {
 	return &InsuredPerson{
 		snils: snils,
-		inn: inn
+		inn:   inn,
 	}
 }
