@@ -91,13 +91,13 @@ type InsuredPersonMismatchType struct {
 type FullName struct {
 
 	// Имя
-	FirstName string `xml:"firstName,omitempty"`
+	FirstName string `xml:"fullName>firstName"`
 
 	// Фамилия
-	LastName string `xml:"lastName,omitempty"`
+	LastName string `xml:"fullName>lastName"`
 
 	// Отчество
-	MiddleName string `xml:"middleName,omitempty"`
+	MiddleName string `xml:"fullName>middleName"`
 }
 
 type PassportRF struct {
