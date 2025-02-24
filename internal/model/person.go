@@ -91,34 +91,34 @@ type InsuredPersonMismatchType struct {
 type FullName struct {
 
 	// Имя
-	FirstName string `xml:"fullName>firstName"`
+	FirstName string `xml:"n0:fullName>n1:firstName"`
 
 	// Фамилия
-	LastName string `xml:"fullName>lastName"`
+	LastName string `xml:"n0:fullName>n1:lastName"`
 
 	// Отчество
-	MiddleName string `xml:"fullName>middleName"`
+	MiddleName string `xml:"n0:fullName>n1:middleName"`
 }
 
 type PassportRF struct {
 
 	// Серия паспорта РФ
 
-	Series string `xml:"series,omitempty"`
+	Series string `xml:"n0:identityDocument>n0:passport>n0:series"`
 
 	// Номер паспорта РФ
 
-	Number string `xml:"number,omitempty"`
+	Number string `xml:"n0:identityDocument>n0:passport>n0:number"`
 
 	// Дата выдачи
-	IssueDate string `xml:"issueDate,omitempty"`
+	IssueDate string `xml:"n0:identityDocument>n0:passport>n0:issueDate"`
 
 	// Кем выдан
-	WhoIssued string `xml:"whoIssued,omitempty"`
+	WhoIssued string `xml:"n0:identityDocument>n0:passport>n0:whoIssued"`
 }
 
 type IdentityDocument struct {
-	PassportRF `xml:"passport,omitempty"`
+	PassportRF
 }
 
 type AddressFias struct {
@@ -158,23 +158,26 @@ type MethodReceivePayment struct {
 
 // структура 86 сообщения
 type InsuredPerson struct {
-	XMLName xml.Name `xml:"urn:ru:fss:integration:types:rpu:InsuredPerson:v01 insuredPerson"`
+	XMLName xml.Name `xml:"urn:ru:fss:integration:types:rpu:InsuredPerson:v01 n0:insuredPerson"`
 
-	FullName `xml:"fullName"`
+	NameSpaceN1 string `xml:"xmlns:n1,attr"`
+	NameSpaceN2 string `xml:"xmlns:n2,attr"`
 
-	BirthDate string `xml:"birthDate"`
+	FullName
 
-	Gender GenderType `xml:"gender"`
+	BirthDate string `xml:"n0:birthDate"`
 
-	Snils string `xml:"snils"`
+	Gender GenderType `xml:"n0:gender"`
 
-	Inn string `xml:"inn"`
+	Snils string `xml:"n0:snils"`
 
-	IdentityDocument `xml:"identityDocument,omitempty"`
+	Inn string `xml:"n0:inn"`
 
-	RegAddress `xml:"regAddress,omitempty"`
+	IdentityDocument
 
-	MethodReceivePayment `xml:"methodReceivePayment,omitempty"`
+	RegAddress
+
+	MethodReceivePayment
 }
 
 func NewInsuredPerson(snils string, inn string) *InsuredPerson {

@@ -9,6 +9,9 @@ import (
 func main() {
 	insuredperson := model.NewInsuredPerson("02126176506", "231101593917")
 
+	insuredperson.NameSpaceN1 = "http://www.fss.ru/integration/types/person/v02"
+	insuredperson.NameSpaceN2 = "http://www.fss.ru/integration/types/common/v01"
+
 	insuredperson.FullName.FirstName = "Светлана"
 	insuredperson.FullName.LastName = "Иванова"
 	insuredperson.FullName.MiddleName = "Григорьевна"
@@ -34,5 +37,5 @@ func main() {
 		return
 	}
 	fmt.Printf("\n--- Marshal ---\n\n")
-	fmt.Printf("xml: %s\n", string(xmlText))
+	fmt.Printf("%s\n", string(xmlText))
 }
