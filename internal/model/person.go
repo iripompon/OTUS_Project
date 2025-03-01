@@ -91,30 +91,30 @@ type InsuredPersonMismatchType struct {
 type FullName struct {
 
 	// Имя
-	FirstName string `xml:"fullName>firstName"`
+	FirstName string `xml:"n0:fullName>n1:firstName"`
 
 	// Фамилия
-	LastName string `xml:"fullName>lastName"`
+	LastName string `xml:"n0:fullName>n1:lastName"`
 
 	// Отчество
-	MiddleName string `xml:"fullName>middleName"`
+	MiddleName string `xml:"n0:fullName>n1:middleName"`
 }
 
 type PassportRF struct {
 
 	// Серия паспорта РФ
 
-	Series string `xml:"identityDocument>passport>series"`
+	Series string `xml:"n0:identityDocument>n0:passport>n0:series"`
 
 	// Номер паспорта РФ
 
-	Number string `xml:"identityDocument>passport>number"`
+	Number string `xml:"n0:identityDocument>n0:passport>n0:number"`
 
 	// Дата выдачи
-	IssueDate string `xml:"identityDocument>passport>issueDate"`
+	IssueDate string `xml:"n0:identityDocument>n0:passport>n0:issueDate"`
 
 	// Кем выдан
-	WhoIssued string `xml:"identityDocument>passport>whoIssued"`
+	WhoIssued string `xml:"n0:identityDocument>n0:passport>n0:whoIssued"`
 }
 
 type IdentityDocument struct {
@@ -158,17 +158,20 @@ type MethodReceivePayment struct {
 
 // структура 86 сообщения
 type InsuredPerson struct {
-	XMLName xml.Name `xml:"urn:ru:fss:integration:types:rpu:InsuredPerson:v01 insuredPerson"`
+	XMLName xml.Name `xml:"urn:ru:fss:integration:types:rpu:InsuredPerson:v01 n0:insuredPerson"`
+
+	NameSpaceN1 string `xml:"xmlns:n1,attr"`
+	NameSpaceN2 string `xml:"xmlns:n2,attr"`
 
 	FullName
 
-	BirthDate string `xml:"birthDate"`
+	BirthDate string `xml:"n0:birthDate"`
 
-	Gender GenderType `xml:"gender"`
+	Gender GenderType `xml:"n0:gender"`
 
-	Snils string `xml:"snils"`
+	Snils string `xml:"n0:snils"`
 
-	Inn string `xml:"inn"`
+	Inn string `xml:"n0:inn"`
 
 	IdentityDocument
 
