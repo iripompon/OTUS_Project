@@ -104,35 +104,35 @@ type PassportRF struct {
 
 	// Серия паспорта РФ
 
-	Series string `xml:"series,omitempty"`
+	Series string `xml:"identityDocument>passport>series"`
 
 	// Номер паспорта РФ
 
-	Number string `xml:"number,omitempty"`
+	Number string `xml:"identityDocument>passport>number"`
 
 	// Дата выдачи
-	IssueDate string `xml:"issueDate,omitempty"`
+	IssueDate string `xml:"identityDocument>passport>issueDate"`
 
 	// Кем выдан
-	WhoIssued string `xml:"whoIssued,omitempty"`
+	WhoIssued string `xml:"identityDocument>passport>whoIssued"`
 }
 
 type IdentityDocument struct {
-	PassportRF `xml:"passport,omitempty"`
+	PassportRF
 }
 
 type AddressFias struct {
 
 	// Квартира
-	Flat int `xml:"flat,omitempty"`
+	Flat int `xml:"regAddress>fiasAddress>flat"`
 
 	// Соответствие ГАР: Если указан дом: HOUSEGUID – Глобальный уникальный идентификатор дома
 
-	HouseGuid string `xml:"houseGuid,omitempty"`
+	HouseGuid string `xml:"regAddress>fiasAddress>houseGuid"`
 }
 
 type RegAddress struct {
-	AddressFias `xml:"fiasAddress,omitempty"`
+	AddressFias
 
 	PostalCode string `xml:"postalCode,omitempty"`
 }
@@ -141,26 +141,26 @@ type BankInfo struct {
 
 	// Наименование банка
 
-	BankName string `xml:"bankName,omitempty"`
+	BankName string `xml:"methodReceivePayment>bankInfo>bankName"`
 
 	// БИК банка
 
-	Bik string `xml:"bik,omitempty"`
+	Bik string `xml:"methodReceivePayment>bankInfo>bik"`
 
 	// Номер расчетного счета
 
-	AccountNum string `xml:"accountNum,omitempty"`
+	AccountNum string `xml:"methodReceivePayment>bankInfo>accountNum"`
 }
 
 type MethodReceivePayment struct {
-	BankInfo `xml:"bankInfo,omitempty"`
+	BankInfo
 }
 
 // структура 86 сообщения
 type InsuredPerson struct {
 	XMLName xml.Name `xml:"urn:ru:fss:integration:types:rpu:InsuredPerson:v01 insuredPerson"`
 
-	FullName `xml:"fullName"`
+	FullName
 
 	BirthDate string `xml:"birthDate"`
 
@@ -170,11 +170,11 @@ type InsuredPerson struct {
 
 	Inn string `xml:"inn"`
 
-	IdentityDocument `xml:"identityDocument,omitempty"`
+	IdentityDocument
 
-	RegAddress `xml:"regAddress,omitempty"`
+	RegAddress
 
-	MethodReceivePayment `xml:"methodReceivePayment,omitempty"`
+	MethodReceivePayment
 }
 
 func NewInsuredPerson(snils string, inn string) *InsuredPerson {
