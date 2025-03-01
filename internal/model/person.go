@@ -1,6 +1,7 @@
 package model
 
 import (
+	"encoding/base64"
 	"encoding/xml"
 )
 
@@ -124,32 +125,32 @@ type IdentityDocument struct {
 type AddressFias struct {
 
 	// Квартира
-	Flat int `xml:"regAddress>fiasAddress>flat"`
+	Flat int `xml:"n0:regAddress>n0:fiasAddress>n2:flat"`
 
 	// Соответствие ГАР: Если указан дом: HOUSEGUID – Глобальный уникальный идентификатор дома
 
-	HouseGuid string `xml:"regAddress>fiasAddress>houseGuid"`
+	HouseGuid string `xml:"n0:regAddress>n0:fiasAddress>n2:houseGuid"`
 }
 
 type RegAddress struct {
 	AddressFias
 
-	PostalCode string `xml:"postalCode,omitempty"`
+	PostalCode string `xml:"n0:regAddress>n0:postalCode"`
 }
 
 type BankInfo struct {
 
 	// Наименование банка
 
-	BankName string `xml:"methodReceivePayment>bankInfo>bankName"`
+	BankName string `xml:"n0:methodReceivePayment>n2:bankInfo>n2:bankName"`
 
 	// БИК банка
 
-	Bik string `xml:"methodReceivePayment>bankInfo>bik"`
+	Bik string `xml:"n0:methodReceivePayment>n2:bankInfo>n2:bik"`
 
 	// Номер расчетного счета
 
-	AccountNum string `xml:"methodReceivePayment>bankInfo>accountNum"`
+	AccountNum string `xml:"n0:methodReceivePayment>n2:bankInfo>n2:accountNum"`
 }
 
 type MethodReceivePayment struct {
@@ -158,8 +159,9 @@ type MethodReceivePayment struct {
 
 // структура 86 сообщения
 type InsuredPerson struct {
-	XMLName xml.Name `xml:"urn:ru:fss:integration:types:rpu:InsuredPerson:v01 n0:insuredPerson"`
+	XMLName xml.Name `xml:"n0:insuredPerson"`
 
+	NameSpaceN0 string `xml:"xmlns:n0,attr"`
 	NameSpaceN1 string `xml:"xmlns:n1,attr"`
 	NameSpaceN2 string `xml:"xmlns:n2,attr"`
 
@@ -185,4 +187,8 @@ func NewInsuredPerson(snils string, inn string) *InsuredPerson {
 		Snils: snils,
 		Inn:   inn,
 	}
+}
+
+func MessageToBase64(msg []byte) string {
+	return base64.StdEncoding.EncodeToString(msg)
 }

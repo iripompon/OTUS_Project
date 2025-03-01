@@ -9,6 +9,7 @@ import (
 func main() {
 	insuredperson := model.NewInsuredPerson("02126176506", "231101593917")
 
+	insuredperson.NameSpaceN0 = "urn:ru:fss:integration:types:rpu:InsuredPerson:v01"
 	insuredperson.NameSpaceN1 = "http://www.fss.ru/integration/types/person/v02"
 	insuredperson.NameSpaceN2 = "http://www.fss.ru/integration/types/common/v01"
 
@@ -31,11 +32,26 @@ func main() {
 	insuredperson.MethodReceivePayment.BankInfo.Bik = "040349602"
 	insuredperson.MethodReceivePayment.BankInfo.AccountNum = "40817810430851481443"
 
-	xmlText, err := xml.MarshalIndent(insuredperson, " ", " ")
+	xmlTextPers, err := xml.MarshalIndent(insuredperson, " ", " ")
 	if err != nil {
 		fmt.Printf("error: %v\n", err)
 		return
 	}
-	fmt.Printf("\n--- Marshal ---\n\n")
+
+	fmt.Printf("\n--- Person ---\n\n")
+	fmt.Printf("%s\n", string(xmlTextPers))
+
+	putMessageReg := model.NewPutMessage("1.0", "go", "1.23.4", 2)
+	putMessageReg.NameSpaceN0 = "http://www.fss.ru/integration/types/sedo/v01"
+	putMessageReg.Message = model.MessageToBase64(xmlTextPers)
+
+	xmlText, err := xml.MarshalIndent(putMessageReg, " ", " ")
+
+	if err != nil {
+		fmt.Printf("error: %v\n", err)
+		return
+	}
+
+	fmt.Printf("\n--- PutMessage ---\n\n")
 	fmt.Printf("%s\n", string(xmlText))
 }
