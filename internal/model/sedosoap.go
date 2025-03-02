@@ -8,7 +8,7 @@ type SedoEnvelope struct {
 
 	//блок Body – содержит смысловые данные сообщения
 
-	SedoBody
+	SedoBody []byte
 }
 type SedoHeader struct {
 
@@ -30,7 +30,7 @@ type Signature struct {
 
 	//содержит рассчитанное значение ЭП
 
-	SignatureValue
+	SignatureValue string
 
 	//содержит ссылку на сертификат пользователя, который содержится в
 	//  BinarySecurityToken и с помощью которого была рассчитана ЭП
@@ -40,4 +40,32 @@ type Signature struct {
 	//блок для встраивания машиночитаемой доверенности (МЧД)
 
 	Object
+}
+
+type SignedInfo struct {
+	CanonicalizationMethod string
+	SignatureMethod        string
+	//Ссылка на подписываемые данные
+	Reference
+}
+
+type Reference struct {
+	Transform string
+	//алгоритм вычисления хэш суммы
+	DigestMethod string
+	//вычисленное значение хэш суммы от подписываемых данных
+	DigestValue string
+}
+
+type KeyInfo struct {
+	SecurityTokenRef string
+}
+
+type Object struct {
+	PowerOfAttorneyLink string
+}
+
+type BinarySecurityToken struct {
+	EncodingType string
+	ValueType    string
 }
